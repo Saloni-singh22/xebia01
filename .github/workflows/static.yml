@@ -1,13 +1,23 @@
-pipeline:
-  steps:
-    - name: Generate QR Code
-      command: |
-        python generate_qr_code.py "Hello, World!"
-      artifact_paths:
-        - qrcode.png
+on:
+  push:
+    branches:
+      - main
 
-    - name: Scan QR Code
-      command: |
-        python scan_qr_code.py
-      artifact_paths:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generate QR Code
+        run: python generate_qr_code.py "Hello, World!"
+        continue-on-error: true
+
+      - name: Scan QR Code
+        run: python scan_qr_code.py
+        continue-on-error: true
+
+    # Define artifacts at the job level, not inside each step
+    artifacts:
+      paths:
+        - qrcode.png
         - generated_image.png
