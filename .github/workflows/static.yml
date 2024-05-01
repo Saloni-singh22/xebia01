@@ -22,7 +22,7 @@ jobs:
         pip install qrcode opencv-python numpy
     - name: Run QR Code script
       run: |
-        python qr_code_script.py
+        python qr.py
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
